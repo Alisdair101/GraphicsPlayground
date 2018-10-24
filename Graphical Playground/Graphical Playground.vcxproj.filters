@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{af70216f-40f4-485a-bc74-71fa0d6ea4f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{40d821bf-324c-463d-a1ea-9e7598da8d82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules">
+      <UniqueIdentifier>{95206e1d-efef-4877-bf45-ac9c2b671997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Scene">
+      <UniqueIdentifier>{990c84c5-e26e-4cea-b7ea-9dcc6cdd8225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Managers">
+      <UniqueIdentifier>{79439c89-56c3-4dfb-b82e-6a7faf42fce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Managers\Base Interface">
+      <UniqueIdentifier>{0b404cef-4da2-4863-b4e6-3c9aae61b070}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Managers\System Managers">
+      <UniqueIdentifier>{291990a1-00b2-47c5-b197-8f0f2d5a4fa5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Managers\Objects">
+      <UniqueIdentifier>{36221f49-5f41-4949-a782-0af2b3231e70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Managers\Objects\Window">
+      <UniqueIdentifier>{c8842631-52a1-4e22-8454-f9d990ab767f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Objects">
+      <UniqueIdentifier>{bd0532e7-6812-48e2-8757-6dbc7d51786c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Base Interface">
+      <UniqueIdentifier>{ac63e0ab-8a44-4a5b-b33c-a9c9847d7eb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Modules">
+      <UniqueIdentifier>{28ef565c-79ae-4817-a37b-83e7dc182684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Modules\Graphics Module">
+      <UniqueIdentifier>{fed195c6-63bb-4bb5-8c4d-19f17e9d851a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Module">
+      <UniqueIdentifier>{c6d36452-5390-432e-83e0-45cddda8c3a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Library">
+      <UniqueIdentifier>{98729e58-f233-4e16-badf-3ca1bb210090}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Shaders">
+      <UniqueIdentifier>{f6fa8db3-d377-47e5-8308-0d8483db67ec}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="System\Application.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Managers\Objects\Window\ManagedWindow.cpp">
+      <Filter>Engine\Managers\Objects\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Managers\Objects\GameScene.cpp">
+      <Filter>Engine\Managers\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Managers\System Managers\DX11Manager.cpp">
+      <Filter>Engine\Managers\System Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Managers\System Managers\WindowManager.cpp">
+      <Filter>Engine\Managers\System Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Objects\GameObject.cpp">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Module\GraphicsEngineModule.cpp">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Library\GraphicsModuleLibrary.cpp">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="System\main.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="System\Application.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Base Interface\EngineModule.h">
+      <Filter>Engine\Engine Modules\Base Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Managers\Base Interface\Manager.h">
+      <Filter>Engine\Managers\Base Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Managers\Objects\Window\ManagedWindow.h">
+      <Filter>Engine\Managers\Objects\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Managers\Objects\GameScene.h">
+      <Filter>Engine\Managers\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Managers\System Managers\DX11Manager.h">
+      <Filter>Engine\Managers\System Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Managers\System Managers\WindowManager.h">
+      <Filter>Engine\Managers\System Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Objects\ManagedObject.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Objects\GameObject.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Module\GraphicsEngineModule.h">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Library\GraphicsModuleLibrary.h">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Library</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Engine\Engine Modules\Graphics Module\Shaders\Effects.fx">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Shaders</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
