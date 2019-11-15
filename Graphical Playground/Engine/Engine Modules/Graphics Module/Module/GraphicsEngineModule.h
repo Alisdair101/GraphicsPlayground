@@ -2,8 +2,12 @@
 
 ////////// Dependencies //////////
 // Library Dependencies
-#include <d3dx11.h>
+#include <windows.h>
 #include <memory>
+
+// Shaders
+#include "../../../../Content/Shader Headers/SampleVertexShader.h"
+#include "../../../../Content/Shader Headers/SamplePixelShader.h"
 
 // Local Library Dependencies
 #include "../Library/GraphicsModuleLibrary.h"
@@ -13,6 +17,7 @@
 
 #include "../../../Managers/System Managers/WindowManager.h"
 #include "../../../Managers/System Managers/DX11Manager.h"
+
 
 struct GraphicsEngineModuleConfig : EngineModuleConfig
 {
@@ -39,6 +44,8 @@ public:
 
 #pragma region TEMP FUNCTIONALITY
 	HRESULT				InitialiseBasicShader();
+	HRESULT				InitialiseBasicObject();
+	void				InitialiseBasicViewport();
 #pragma endregion
 
 
@@ -57,9 +64,12 @@ private:
 #pragma region TEMP VARIABLES
 	ID3D11VertexShader* VS;
 	ID3D11PixelShader* PS;
-	ID3D11Buffer* triangleVertBuffer;
-	ID3D11InputLayout* vertLayout;
+	ID3D11Buffer* squareVertBuffer;
+	ID3D11Buffer* squareIndexBuffer;
+	ID3D11InputLayout* inputLayout;
+
+	ID3D11DepthStencilView* depthStencilView;
+	ID3D11Texture2D* depthStencilBuffer;
 #pragma endregion
 
 };
-

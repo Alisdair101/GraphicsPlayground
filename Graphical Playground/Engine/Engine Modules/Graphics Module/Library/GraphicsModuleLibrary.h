@@ -3,18 +3,29 @@
 ////////// Dependencies //////////
 // Library Dependencies
 #include <windows.h>
-#include <d3dx11.h>
+#include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\d3d11_4.h> // TODO
+#include <DirectXMath.h>
 #include <D3DCompiler.h>
-#include <xnamath.h>
 
-namespace GraphicsModuleLibrary
+// STL Dependencies
+#include <vector>
+#include <string>
+#include <fstream>
+#include <iostream>
+
+namespace GXLib
 {
 	struct SimpleVertex
 	{
-		SimpleVertex(float x, float y, float z) : m_Position(x, y, z) {}
+		SimpleVertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT4 colour) :
+			m_Position(position),
+			m_Colour(colour)
+		{}
 
-		XMFLOAT3 m_Position;
+		DirectX::XMFLOAT3 m_Position;
+		DirectX::XMFLOAT4 m_Colour;
 	};
 
-	HRESULT CompileShaderFromFile(WCHAR* szFileName, LPCSTR szEntryPoint, LPCSTR szShaderModel, ID3DBlob** ppBlobOut);
+	// Function that reads from a binary file asynchronously.
+	std::vector<byte> ReadShaderFile(const std::wstring& filename);
 };

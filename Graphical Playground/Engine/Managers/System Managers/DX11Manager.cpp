@@ -23,6 +23,8 @@ void DX11Manager::Destroy()
 	m_SwapChain->Release();
 	m_D3D11Device->Release();
 	m_D3D11DeviceContext->Release();
+	depthStencilView->Release();
+	depthStencilBuffer->Release();
 }
 
 HRESULT DX11Manager::Initialise(std::shared_ptr<ManagerConfig> config)
@@ -58,8 +60,8 @@ HRESULT DX11Manager::InitialiseDirect3DApp(std::shared_ptr<DX11ManagerConfig> dx
 
     ZeroMemory(&bufferDesc, sizeof(DXGI_MODE_DESC));
 
-    bufferDesc.Width = m_WindowMgr->GetWindow(0)->GetWindowWidth();				// This is the Width of the resolution we are going to use.
-    bufferDesc.Height = m_WindowMgr->GetWindow(0)->GetWindowHeight();			// This is the Height of the resolution we are going to use.
+    bufferDesc.Width = m_WindowMgr->GetWindow(0)->GetWindowWidth();				// This is the Width of the resolution we are going to use. // TEMP
+    bufferDesc.Height = m_WindowMgr->GetWindow(0)->GetWindowHeight();			// This is the Height of the resolution we are going to use. // TEMP
     bufferDesc.RefreshRate.Numerator = 60;										// Refresh rate of the monitor in hertz
     bufferDesc.RefreshRate.Denominator = 1;										// Refresh rate of the monitor in hertz
     bufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;								// Describes the format of the display, describes the allocation of the colour channels.
@@ -106,17 +108,42 @@ HRESULT DX11Manager::InitialiseDirect3DApp(std::shared_ptr<DX11ManagerConfig> dx
 	{
 		return hr;
 	}
+	
+	// TEMP
+	// Describe our Depth/Stencil Buffer
+	D3D11_TEXTURE2D_DESC depthStencilDesc;
+
+	depthStencilDesc.Width = m_WindowMgr->GetWindow(0)->GetWindowWidth(); // TEMP
+	depthStencilDesc.Height = m_WindowMgr->GetWindow(0)->GetWindowHeight(); // TEMP
+	depthStencilDesc.MipLevels = 1;
+	depthStencilDesc.ArraySize = 1;
+	depthStencilDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.SampleDesc.Count = 1;
+	depthStencilDesc.SampleDesc.Quality = 0;
+	depthStencilDesc.Usage = D3D11_USAGE_DEFAULT;
+	depthStencilDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+	depthStencilDesc.CPUAccessFlags = 0;
+	depthStencilDesc.MiscFlags = 0;
+
+	ZeroMemory(&depthStencilBuffer, sizeof(depthStencilBuffer));
+
+	m_D3D11Device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilBuffer);
+
+	if (depthStencilBuffer != 0) // TEMP?
+	{
+		m_D3D11Device->CreateDepthStencilView(depthStencilBuffer, NULL, &depthStencilView);
+	}
 
     // Set our Render Target
-	m_D3D11DeviceContext->OMSetRenderTargets(1, &m_RenderTargetView, NULL);
+	m_D3D11DeviceContext->OMSetRenderTargets(1, &m_RenderTargetView, depthStencilView);
 
-	return S_OK;
+	return hr;
 }
 
 void DX11Manager::ClearBackBuffer()
 {
 	// Clear our backbuffer to the updated color
-	D3DXCOLOR bgColor(0.0f, 0.5f, 0.0f, 1.0f);
+	CONST FLOAT bgColor[4] = { 0.0f, 0.5f, 0.0f, 1.0f };
 	m_D3D11DeviceContext->ClearRenderTargetView(m_RenderTargetView, bgColor);
 }
 

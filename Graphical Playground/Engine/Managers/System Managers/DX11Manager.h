@@ -3,9 +3,7 @@
 ////////// Dependencies //////////
 // Library Dependencies
 #include <windows.h>
-#include <d3dx11.h>
-#include <d3dx10.h>
-
+#include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\d3d11_4.h> // TODO
 #include <DirectXMath.h>
 
 // Project Dependencies
@@ -52,11 +50,14 @@ private:
     ////////// Member Variables //////////
 	std::shared_ptr<WindowManager> m_WindowMgr;
 
-    IDXGISwapChain*			m_SwapChain;
     ID3D11Device*			m_D3D11Device;
     ID3D11DeviceContext*	m_D3D11DeviceContext;
 
+	IDXGISwapChain*			m_SwapChain;
+
 	// TEMP!
     ID3D11RenderTargetView* m_RenderTargetView;
+	ID3D11DepthStencilView* depthStencilView;
+	ID3D11Texture2D* depthStencilBuffer;
 };
 

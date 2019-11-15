@@ -14,9 +14,6 @@
     <Filter Include="Engine\Engine Modules">
       <UniqueIdentifier>{95206e1d-efef-4877-bf45-ac9c2b671997}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Scene">
-      <UniqueIdentifier>{990c84c5-e26e-4cea-b7ea-9dcc6cdd8225}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Managers">
       <UniqueIdentifier>{79439c89-56c3-4dfb-b82e-6a7faf42fce1}</UniqueIdentifier>
     </Filter>
@@ -52,6 +49,12 @@
     </Filter>
     <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Shaders">
       <UniqueIdentifier>{f6fa8db3-d377-47e5-8308-0d8483db67ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content">
+      <UniqueIdentifier>{f3c411d4-578b-41fb-acd9-4f839e796d0d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Content\Shaders">
+      <UniqueIdentifier>{bb7962e1-9680-4ef0-b4d8-4df62d338d10}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,8 +122,11 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Engine\Engine Modules\Graphics Module\Shaders\Effects.fx">
-      <Filter>Engine\Engine Modules\Modules\Graphics Module\Shaders</Filter>
+    <FxCompile Include="Content\Shaders\SamplePixelShader.hlsl">
+      <Filter>Content\Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Content\Shaders\SampleVertexShader.hlsl">
+      <Filter>Content\Shaders</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>
