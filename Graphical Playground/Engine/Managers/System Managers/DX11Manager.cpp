@@ -23,6 +23,8 @@ void DX11Manager::Destroy()
 	m_SwapChain->Release();
 	m_D3D11Device->Release();
 	m_D3D11DeviceContext->Release();
+
+	// TEMP
 	depthStencilView->Release();
 	depthStencilBuffer->Release();
 }
@@ -127,11 +129,22 @@ HRESULT DX11Manager::InitialiseDirect3DApp(std::shared_ptr<DX11ManagerConfig> dx
 
 	ZeroMemory(&depthStencilBuffer, sizeof(depthStencilBuffer));
 
-	m_D3D11Device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilBuffer);
+	hr = m_D3D11Device->CreateTexture2D(&depthStencilDesc, NULL, &depthStencilBuffer);
 
-	if (depthStencilBuffer != 0) // TEMP?
+	if (FAILED(hr))
 	{
-		m_D3D11Device->CreateDepthStencilView(depthStencilBuffer, NULL, &depthStencilView);
+		return hr;
+	}
+
+	// TEMP
+	if (depthStencilBuffer != 0)
+	{
+		hr = m_D3D11Device->CreateDepthStencilView(depthStencilBuffer, NULL, &depthStencilView);
+
+		if (FAILED(hr))
+		{
+			return hr;
+		}
 	}
 
     // Set our Render Target
@@ -145,6 +158,11 @@ void DX11Manager::ClearBackBuffer()
 	// Clear our backbuffer to the updated color
 	CONST FLOAT bgColor[4] = { 0.0f, 0.5f, 0.0f, 1.0f };
 	m_D3D11DeviceContext->ClearRenderTargetView(m_RenderTargetView, bgColor);
+}
+
+void DX11Manager::ClearDepthBuffer()
+{
+	m_D3D11DeviceContext->ClearDepthStencilView(depthStencilView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0); // TEMP
 }
 
 void DX11Manager::PresentBackBuffer()

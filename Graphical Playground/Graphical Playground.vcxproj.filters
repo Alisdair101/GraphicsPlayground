@@ -47,9 +47,6 @@
     <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Library">
       <UniqueIdentifier>{98729e58-f233-4e16-badf-3ca1bb210090}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Engine Modules\Modules\Graphics Module\Shaders">
-      <UniqueIdentifier>{f6fa8db3-d377-47e5-8308-0d8483db67ec}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Content">
       <UniqueIdentifier>{f3c411d4-578b-41fb-acd9-4f839e796d0d}</UniqueIdentifier>
     </Filter>

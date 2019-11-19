@@ -43,6 +43,8 @@ public:
 	void					ClearBackBuffer();
 	void					PresentBackBuffer();
 
+	void					ClearDepthBuffer();
+
     // Private Functionality
 private:
     HRESULT					InitialiseDirect3DApp(std::shared_ptr<DX11ManagerConfig> dx11Config);
