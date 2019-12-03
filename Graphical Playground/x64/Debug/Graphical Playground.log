@@ -7,22 +7,6 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1236): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1237): warning C4793: 'DirectX::XMMatrixScaling': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1237): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(629): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(629): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(631): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(631): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(633): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(633): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(635): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(635): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(639): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(639): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(641): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(641): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(643): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(643): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(645): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(645): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(2263): warning C4793: 'DirectX::XMMatrixPerspectiveFovLH': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(2263): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(2265): warning C4793: 'DirectX::XMMatrixPerspectiveFovLH': function compiled as native:
@@ -127,6 +111,8 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1623): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1626): warning C4793: 'DirectX::XMMatrixRotationNormal': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(1626): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(2905): warning C4793: 'DirectX::XMVectorSubtract': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(2905): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(305): warning C4793: 'DirectX::XMMatrixMultiply': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(305): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(306): warning C4793: 'DirectX::XMMatrixMultiply': function compiled as native:
@@ -215,8 +201,6 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(378): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(379): warning C4793: 'DirectX::XMMatrixMultiply': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(379): warning C4793: 	Found an intrinsic not supported in managed code
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(2905): warning C4793: 'DirectX::XMVectorSubtract': function compiled as native:
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(2905): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(9266): warning C4793: 'DirectX::XMVector3Cross': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(9266): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(9268): warning C4793: 'DirectX::XMVector3Cross': function compiled as native:
@@ -255,6 +239,22 @@ C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(1447): warning C4793: 	Found an intrinsic not supported in managed code
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(1448): warning C4793: 'DirectX::XMVectorSelect': function compiled as native:
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathVector.inl(1448): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(629): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(629): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(631): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(631): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(633): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(633): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(635): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(635): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(639): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(639): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(641): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(641): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(643): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(643): warning C4793: 	Found an intrinsic not supported in managed code
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(645): warning C4793: 'DirectX::XMMatrixTranspose': function compiled as native:
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\um\DirectXMathMatrix.inl(645): warning C4793: 	Found an intrinsic not supported in managed code
   GraphicsModuleLibrary.obj : /DEBUG:FASTLINK is not supported when managed code is present; restarting link with /DEBUG:FULL
   GraphicsModuleLibrary.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
   Graphical Playground.vcxproj -> C:\Users\Alisdair.Wright\Documents\FT\GraphicsPlayground\x64\Debug\Graphical Playground.exe

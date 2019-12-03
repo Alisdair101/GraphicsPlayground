@@ -5,9 +5,9 @@
 #include <windows.h>
 
 // Project Dependencies
-#include "../../../Objects/ManagedObject.h"
+#include "../../../Objects/IObject.h"
 
-struct ManagedWindowConfig : ManagedObjectConfig
+struct ManagedWindowConfig : IObjectConfig
 {
 	ManagedWindowConfig() {};
 	virtual		~ManagedWindowConfig() {};
@@ -29,7 +29,7 @@ public:
 
 	// Parent Functionality
 public:
-	virtual HRESULT     Initialise(std::shared_ptr<ManagedObjectConfig> config);
+	virtual HRESULT     Initialise(std::shared_ptr<IObjectConfig> config);
 
 	// Public Functionality
 public:

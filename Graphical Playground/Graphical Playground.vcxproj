@@ -39,7 +39,7 @@
     <ClInclude Include="Engine\Managers\System Managers\DX11Manager.h" />
     <ClInclude Include="Engine\Managers\System Managers\WindowManager.h" />
     <ClInclude Include="Engine\Objects\GameObject.h" />
-    <ClInclude Include="Engine\Objects\ManagedObject.h" />
+    <ClInclude Include="Engine\Objects\IObject.h" />
     <ClInclude Include="System\Application.h" />
   </ItemGroup>
   <ItemGroup>

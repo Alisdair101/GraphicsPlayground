@@ -26,6 +26,11 @@ namespace GXLib
 		DirectX::XMFLOAT4 m_Colour;
 	};
 
+	struct cbPerObject
+	{
+		DirectX::XMMATRIX  WVP;
+	};
+
 	// Function that reads from a binary file asynchronously.
 	std::vector<byte> ReadShaderFile(const std::wstring& filename);
 };

@@ -23,10 +23,7 @@ void GraphicsEngineModule::Destroy()
 	// TEMP
 	VS->Release();
 	PS->Release();
-	cubeVertBuffer->Release();
-	cubeIndexBuffer->Release();
 	inputLayout->Release();
-	cbPerObjectBuffer->Release();
 }
 
 HRESULT GraphicsEngineModule::Initialise(std::shared_ptr<EngineModuleConfig> config)
@@ -37,7 +34,7 @@ HRESULT GraphicsEngineModule::Initialise(std::shared_ptr<EngineModuleConfig> con
 
     // Allocate Memory for Managers
 	m_WindowMgr = std::make_shared<WindowManager>();
-	m_DX11Mgr = std::make_unique<DX11Manager>();
+	m_DX11Mgr = std::make_shared<DX11Manager>();
 
     // Being setup of Managers
     // WindowMgr Config
@@ -119,7 +116,7 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 
 	// BUFFERS
 	// Create the vertex buffer
-	GXLib::SimpleVertex squareVertices[] =
+	GXLib::SimpleVertex cubeVertices[] =
 	{
 		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)),
 		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, -1.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),
@@ -144,10 +141,9 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 	D3D11_SUBRESOURCE_DATA vertexBufferData;
 
 	ZeroMemory(&vertexBufferData, sizeof(vertexBufferData));
-	vertexBufferData.pSysMem = squareVertices;
+	vertexBufferData.pSysMem = cubeVertices;
 	hr = m_DX11Mgr->GetDevice()->CreateBuffer(&vertexBufferDesc, &vertexBufferData, &cubeVertBuffer);
 	if (FAILED(hr)) return hr;
-
 
 	// Create the Index Buffer
 	DWORD indices[] =
@@ -192,27 +188,15 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 	hr = m_DX11Mgr->GetDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &cubeIndexBuffer);
 	if (FAILED(hr)) return hr;
 
-	// Set the Vertex Buffer
-	UINT stride = sizeof(GXLib::SimpleVertex);
-	UINT offset = 0;
-	m_DX11Mgr->GetDeviceContext()->IASetVertexBuffers(0, 1, &cubeVertBuffer, &stride, &offset);
+	std::shared_ptr<GameObjectConfig> goConfig = std::make_shared<GameObjectConfig>();
+	goConfig->m_DX11Mgr = m_DX11Mgr;
+	goConfig->m_VertBuffer = cubeVertBuffer;
+	goConfig->m_IndexBuffer = cubeIndexBuffer;
 
-	// Set the Index Buffer
-	m_DX11Mgr->GetDeviceContext()->IASetIndexBuffer(cubeIndexBuffer, DXGI_FORMAT_R32_UINT, 0);
-
-
-	// Create the buffer to send to the cbuffer in effect file
-	D3D11_BUFFER_DESC cbbd;
-	ZeroMemory(&cbbd, sizeof(D3D11_BUFFER_DESC));
-
-	cbbd.Usage = D3D11_USAGE_DEFAULT;
-	cbbd.ByteWidth = sizeof(cbPerObject);
-	cbbd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	cbbd.CPUAccessFlags = 0;
-	cbbd.MiscFlags = 0;
-
-	hr = m_DX11Mgr->GetDevice()->CreateBuffer(&cbbd, NULL, &cbPerObjectBuffer);
-	if (FAILED(hr)) return hr;
+	cube1 = std::make_unique<GameObject>();
+	cube1->Initialise(goConfig);
+	cube2 = std::make_unique<GameObject>();
+	cube2->Initialise(goConfig);
 
 	return hr;
 }
@@ -249,11 +233,6 @@ void GraphicsEngineModule::InitialiseBasicCamera()
 	camProjection = DirectX::XMMatrixPerspectiveFovLH(0.4f * 3.14f, (float)m_WindowMgr->GetWindow(0)->GetWindowWidth() / m_WindowMgr->GetWindow(0)->GetWindowHeight(), 1.0f, 1000.0f);
 	World = DirectX::XMMatrixIdentity();
 	WVP = World * camView * camProjection;
-
-	// Pass matrixes to object constant buffer
-	cbPerObj.WVP = XMMatrixTranspose(WVP);
-	m_DX11Mgr->GetDeviceContext()->UpdateSubresource(cbPerObjectBuffer, 0, NULL, &cbPerObj, 0, 0);
-	m_DX11Mgr->GetDeviceContext()->VSSetConstantBuffers(0, 1, &cbPerObjectBuffer);
 }
 
 void GraphicsEngineModule::Run()
@@ -265,31 +244,29 @@ void GraphicsEngineModule::Run()
 void GraphicsEngineModule::Update()
 {
 	// TEST
-	//Keep the cubes rotating
+	// Keep the cubes rotating
 	rot += .0005f;
 	if (rot > 6.28f)
 		rot = 0.0f;
 
-	//Reset cube1World
-	cube1World = DirectX::XMMatrixIdentity();
 
-	//Define cube1's world space matrix
+	// Define cube1's world space matrix
 	DirectX::XMVECTOR rotaxis = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
-	Rotation = DirectX::XMMatrixRotationAxis(rotaxis, rot);
-	Translation = DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f);
+	cube1->m_Scale = DirectX::XMMatrixScaling(1.0f, 1.0f, 1.0f);
+	cube1->m_Rotation = DirectX::XMMatrixRotationAxis(rotaxis, rot);
+	cube1->m_Translation = DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f);
 
-	//Set cube1's world space using the transformations
-	cube1World = Translation * Rotation;
+	// Set cube1's world space using the transformations
+	cube1->Update(camView, camProjection);
 
-	//Reset cube2World
-	cube2World = DirectX::XMMatrixIdentity();
 
-	//Define cube2's world space matrix
-	Rotation = DirectX::XMMatrixRotationAxis(rotaxis, -rot);
-	Scale = DirectX::XMMatrixScaling(1.3f, 1.3f, 1.3f);
+	// Define cube2's world space matrix
+	cube2->m_Scale = DirectX::XMMatrixScaling(1.3f, 1.3f, 1.3f);
+	cube2->m_Rotation = DirectX::XMMatrixRotationAxis(rotaxis, -rot);
+	cube2->m_Translation = DirectX::XMMatrixTranslation(1.0f, 1.0f, 1.0f);
 
-	//Set cube2's world space matrix
-	cube2World = Rotation * Scale;
+	// Update Cube 2
+	cube2->Update(camView, camProjection);
 }
 
 void GraphicsEngineModule::Draw()
@@ -298,28 +275,14 @@ void GraphicsEngineModule::Draw()
 	m_DX11Mgr->ClearBackBuffer();
 	m_DX11Mgr->ClearDepthBuffer();
 	
-
 	// TEMP
 	{
-		//Set the WVP matrix and send it to the constant buffer in effect file
-		WVP = cube1World * camView * camProjection;
-		cbPerObj.WVP = XMMatrixTranspose(WVP);
-		m_DX11Mgr->GetDeviceContext()->UpdateSubresource(cbPerObjectBuffer, 0, NULL, &cbPerObj, 0, 0);
-		m_DX11Mgr->GetDeviceContext()->VSSetConstantBuffers(0, 1, &cbPerObjectBuffer);
+		// Draw the first cube
+		cube1->Draw();
 
-		//Draw the first cube
-		m_DX11Mgr->GetDeviceContext()->DrawIndexed(36, 0, 0);
-
-		WVP = cube2World * camView * camProjection;
-		cbPerObj.WVP = XMMatrixTranspose(WVP);
-		m_DX11Mgr->GetDeviceContext()->UpdateSubresource(cbPerObjectBuffer, 0, NULL, &cbPerObj, 0, 0);
-		m_DX11Mgr->GetDeviceContext()->VSSetConstantBuffers(0, 1, &cbPerObjectBuffer);
-
-		//Draw the second cube
-		m_DX11Mgr->GetDeviceContext()->DrawIndexed(36, 0, 0);
+		// Draw the second cube
+		cube2->Draw();
 	}
-
-
 
 	// Present the backbuffer to the screen
 	m_DX11Mgr->PresentBackBuffer();

@@ -6,19 +6,18 @@
 
 #include <memory>
 
-struct ManagedObjectConfig
+struct IObjectConfig
 {
-	ManagedObjectConfig() {};
-	virtual ~ManagedObjectConfig() {};
+	IObjectConfig() {};
+	virtual ~IObjectConfig() {};
 };
 
-
-class ManagedObject
+class IObject
 {
 public:
-	virtual         ~ManagedObject() {};      // Destructor
+	virtual         ~IObject() {};      // Destructor
 
-	virtual			HRESULT Initialise(std::shared_ptr<ManagedObjectConfig> mgrConfig) = 0;
+	virtual			HRESULT Initialise(std::shared_ptr<IObjectConfig> obConfig) = 0;
 
 protected:
 	virtual void    Reset() = 0;        // Reset Member Variables

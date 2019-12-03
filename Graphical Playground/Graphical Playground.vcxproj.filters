@@ -105,9 +105,6 @@
     <ClInclude Include="Engine\Managers\System Managers\WindowManager.h">
       <Filter>Engine\Managers\System Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Objects\ManagedObject.h">
-      <Filter>Engine\Objects</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Objects\GameObject.h">
       <Filter>Engine\Objects</Filter>
     </ClInclude>
@@ -116,6 +113,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Engine Modules\Graphics Module\Library\GraphicsModuleLibrary.h">
       <Filter>Engine\Engine Modules\Modules\Graphics Module\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Objects\IObject.h">
+      <Filter>Engine\Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

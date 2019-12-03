@@ -19,6 +19,8 @@
 #include "../../../Managers/System Managers/WindowManager.h"
 #include "../../../Managers/System Managers/DX11Manager.h"
 
+#include "../../../Objects/GameObject.h"
+
 
 struct GraphicsEngineModuleConfig : EngineModuleConfig
 {
@@ -50,8 +52,6 @@ public:
 	void				InitialiseBasicCamera();
 #pragma endregion
 
-
-
 	virtual void		Run();
 
 	// Public Functionality
@@ -62,24 +62,16 @@ public:
 	// Private Functionality
 private:
 	std::shared_ptr<WindowManager> m_WindowMgr;
-	std::unique_ptr<DX11Manager> m_DX11Mgr;
+	std::shared_ptr<DX11Manager> m_DX11Mgr;
 
 #pragma region TEMP VARIABLES
 	ID3D11VertexShader* VS;
 	ID3D11PixelShader* PS;
-	ID3D11Buffer* cubeVertBuffer;
-	ID3D11Buffer* cubeIndexBuffer;
 	ID3D11InputLayout* inputLayout;
 
-	DirectX::XMMATRIX cube1World;
-	DirectX::XMMATRIX cube2World;
-
-	DirectX::XMMATRIX Rotation;
-	DirectX::XMMATRIX Scale;
-	DirectX::XMMATRIX Translation;
 	float rot;
 
-	ID3D11Buffer* cbPerObjectBuffer;
+	
 	DirectX::XMMATRIX WVP;
 	DirectX::XMMATRIX World;
 	DirectX::XMMATRIX camView;
@@ -89,12 +81,9 @@ private:
 	DirectX::XMVECTOR camTarget;
 	DirectX::XMVECTOR camUp;
 
-	struct cbPerObject
-	{
-		DirectX::XMMATRIX  WVP;
-	};
-
-	cbPerObject cbPerObj;
+	ID3D11Buffer* cubeVertBuffer;
+	ID3D11Buffer* cubeIndexBuffer;
+	std::unique_ptr<GameObject> cube1;
+	std::unique_ptr<GameObject> cube2;
 #pragma endregion
-
 };

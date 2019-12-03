@@ -35,7 +35,7 @@ ManagedWindow::~ManagedWindow()
 {
 }
 
-HRESULT ManagedWindow::Initialise(std::shared_ptr<ManagedObjectConfig> config)
+HRESULT ManagedWindow::Initialise(std::shared_ptr<IObjectConfig> config)
 {
 	HRESULT hr;
 
