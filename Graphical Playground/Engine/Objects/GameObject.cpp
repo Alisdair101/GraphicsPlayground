@@ -15,8 +15,8 @@ HRESULT GameObject::Initialise(std::shared_ptr<IObjectConfig> config)
 	std::shared_ptr<GameObjectConfig> goObjectConfig = std::dynamic_pointer_cast<GameObjectConfig>(config);
 
 	m_DX11Mgr = goObjectConfig->m_DX11Mgr;
-	m_VertBuffer = goObjectConfig->m_VertBuffer;
-	m_IndexBuffer = goObjectConfig->m_IndexBuffer;
+	m_Mesh = goObjectConfig->m_Mesh;
+
 
 	// Create the buffer to send to the cbuffer in effect file
 	D3D11_BUFFER_DESC cbbd;
@@ -59,13 +59,13 @@ void GameObject::Draw()
 	// Set the Vertex Buffer
 	UINT stride = sizeof(GXLib::SimpleVertex);
 	UINT offset = 0;
-	m_DX11Mgr->GetDeviceContext()->IASetVertexBuffers(0, 1, &m_VertBuffer, &stride, &offset);
+	m_DX11Mgr->GetDeviceContext()->IASetVertexBuffers(0, 1, &m_Mesh->m_VertexBuffer, &stride, &offset);
 
 	// Set the Index Buffer
-	m_DX11Mgr->GetDeviceContext()->IASetIndexBuffer(m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
+	m_DX11Mgr->GetDeviceContext()->IASetIndexBuffer(m_Mesh->m_IndexBuffer, DXGI_FORMAT_R32_UINT, 0);
 
 	m_DX11Mgr->GetDeviceContext()->VSSetConstantBuffers(0, 1, &m_ConstantBuffer);
 
 	// Draw
-	m_DX11Mgr->GetDeviceContext()->DrawIndexed(36, 0, 0); // TEMP hard coded index count
+	m_DX11Mgr->GetDeviceContext()->DrawIndexed(m_Mesh->m_IndexCount, 0, 0);
 }

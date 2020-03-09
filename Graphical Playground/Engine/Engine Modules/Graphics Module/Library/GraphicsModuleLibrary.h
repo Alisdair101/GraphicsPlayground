@@ -3,7 +3,7 @@
 ////////// Dependencies //////////
 // Library Dependencies
 #include <windows.h>
-#include <C:\Program Files (x86)\Windows Kits\10\Include\10.0.15063.0\um\d3d11_4.h> // TODO
+#include <d3d11_4.h>
 #include <DirectXMath.h>
 #include <D3DCompiler.h>
 
@@ -17,18 +17,31 @@ namespace GXLib
 {
 	struct SimpleVertex
 	{
-		SimpleVertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT4 colour) :
+		SimpleVertex(DirectX::XMFLOAT3 position, DirectX::XMFLOAT2 texCoord) :
 			m_Position(position),
-			m_Colour(colour)
+			m_TexCoord(texCoord)
 		{}
 
 		DirectX::XMFLOAT3 m_Position;
-		DirectX::XMFLOAT4 m_Colour;
+		DirectX::XMFLOAT2 m_TexCoord;
+	};
+
+	struct MeshStore
+	{
+		MeshStore(ID3D11Buffer* vertexBuffer, ID3D11Buffer* indexBuffer, unsigned int vertexCount, unsigned int indexCount) :
+			m_VertexBuffer(vertexBuffer), m_IndexBuffer(indexBuffer), m_VertexCount(vertexCount), m_IndexCount(indexCount)
+		{}
+
+		ID3D11Buffer* m_VertexBuffer;
+		ID3D11Buffer* m_IndexBuffer;
+
+		unsigned int m_VertexCount;
+		unsigned int m_IndexCount;
 	};
 
 	struct cbPerObject
 	{
-		DirectX::XMMATRIX  WVP;
+		DirectX::XMMATRIX WVP;
 	};
 
 	// Function that reads from a binary file asynchronously.

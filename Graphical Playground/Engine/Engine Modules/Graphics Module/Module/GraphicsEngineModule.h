@@ -20,6 +20,9 @@
 #include "../../../Managers/System Managers/DX11Manager.h"
 
 #include "../../../Objects/GameObject.h"
+#include "../../../Objects/Camera.h"
+
+#include "MeshStoreManager.h"
 
 
 struct GraphicsEngineModuleConfig : EngineModuleConfig
@@ -50,6 +53,8 @@ public:
 	HRESULT				InitialiseBasicObject();
 	void				InitialiseBasicViewport();
 	void				InitialiseBasicCamera();
+	HRESULT				InitialiseBasicTextures();
+	HRESULT				InitialiseSamplerState();
 #pragma endregion
 
 	virtual void		Run();
@@ -68,22 +73,17 @@ private:
 	ID3D11VertexShader* VS;
 	ID3D11PixelShader* PS;
 	ID3D11InputLayout* inputLayout;
-
-	float rot;
-
 	
+	std::shared_ptr<Camera> m_MainCamera;
+
 	DirectX::XMMATRIX WVP;
 	DirectX::XMMATRIX World;
-	DirectX::XMMATRIX camView;
-	DirectX::XMMATRIX camProjection;
 
-	DirectX::XMVECTOR camPosition;
-	DirectX::XMVECTOR camTarget;
-	DirectX::XMVECTOR camUp;
-
-	ID3D11Buffer* cubeVertBuffer;
-	ID3D11Buffer* cubeIndexBuffer;
 	std::unique_ptr<GameObject> cube1;
 	std::unique_ptr<GameObject> cube2;
+	float rot;
+
+	ID3D11ShaderResourceView* m_Texture;
+	ID3D11SamplerState* m_SamplerState;
 #pragma endregion
 };

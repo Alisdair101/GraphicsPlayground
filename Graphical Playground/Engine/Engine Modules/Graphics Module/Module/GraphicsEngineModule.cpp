@@ -1,5 +1,8 @@
 #include "GraphicsEngineModule.h"
 
+// Project Includes
+#include "../Library/DDSTextureLoader.h"
+
 
 GraphicsEngineModule::GraphicsEngineModule()
 {
@@ -14,8 +17,6 @@ GraphicsEngineModule::~GraphicsEngineModule()
 
 void GraphicsEngineModule::Reset()
 {
-	//m_WindowMgr = nullptr;
-	//m_DX11Mgr = nullptr;
 }
 
 void GraphicsEngineModule::Destroy()
@@ -59,6 +60,12 @@ HRESULT GraphicsEngineModule::Initialise(std::shared_ptr<EngineModuleConfig> con
 		hr = InitialiseBasicObject();
 		if (FAILED(hr)) { return hr; }
 
+		hr = InitialiseBasicTextures();
+		if (FAILED(hr)) { return hr; }
+
+		hr = InitialiseSamplerState();
+		if (FAILED(hr)) { return hr; }
+
 		InitialiseBasicViewport();
 		InitialiseBasicCamera();
 	}
@@ -86,8 +93,8 @@ HRESULT GraphicsEngineModule::InitialiseBasicShader()
 	// The input-layout description
 	D3D11_INPUT_ELEMENT_DESC inputLayoutDesc[] =
 	{
-		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,	 D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		{ "COLOUR",	  0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0}
+		{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT,	0, 0,	D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,	0, 12,	D3D11_INPUT_PER_VERTEX_DATA, 0 }
 	};
 
 	UINT numElements = ARRAYSIZE(inputLayoutDesc);
@@ -111,29 +118,56 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 {
 	HRESULT hr;
 
-	// TEMP
-	rot = 0.01f;
+	ID3D11Buffer* cubeVertBuffer;
+	ID3D11Buffer* cubeIndexBuffer;
 
+	// TEMP
 	// BUFFERS
 	// Create the vertex buffer
 	GXLib::SimpleVertex cubeVertices[] =
 	{
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, -1.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, -1.0f), DirectX::XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, -1.0f), DirectX::XMFLOAT4(1.0f, 1.0f, 0.0f, 1.0f)),
+		// Front Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f)),
 
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, +1.0f), DirectX::XMFLOAT4(0.0f, 1.0f, 1.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, +1.0f), DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, +1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 1.0f, 1.0f)),
-		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, +1.0f), DirectX::XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f))
+		// Back Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+
+		// Top Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f)),
+
+		// Bottom Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+
+		// Left Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(-1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(1.0f, 1.0f)),
+
+		// Right Face
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 1.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, -1.0f), DirectX::XMFLOAT2(0.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, +1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 0.0f)),
+		GXLib::SimpleVertex(DirectX::XMFLOAT3(+1.0f, -1.0f, +1.0f), DirectX::XMFLOAT2(1.0f, 1.0f))
 	};
 
 	D3D11_BUFFER_DESC vertexBufferDesc;
 	ZeroMemory(&vertexBufferDesc, sizeof(vertexBufferDesc));
 
 	vertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	vertexBufferDesc.ByteWidth = sizeof(GXLib::SimpleVertex) * 8;
+	vertexBufferDesc.ByteWidth = sizeof(GXLib::SimpleVertex) * 24;
 	vertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	vertexBufferDesc.CPUAccessFlags = 0;
 	vertexBufferDesc.MiscFlags = 0;
@@ -148,29 +182,29 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 	// Create the Index Buffer
 	DWORD indices[] =
 	{
-		// front face
-		0, 1, 2,
-		0, 2, 3,
+		// Front Face
+		0,  1,  2,
+		0,  2,  3,
 
-		// back face
-		4, 6, 5,
-		4, 7, 6,
+		// Back Face
+		4,  5,  6,
+		4,  6,  7,
 
-		// left face
-		4, 5, 1,
-		4, 1, 0,
+		// Top Face
+		8,  9, 10,
+		8, 10, 11,
 
-		// right face
-		3, 2, 6,
-		3, 6, 7,
+		// Bottom Face
+		12, 13, 14,
+		12, 14, 15,
 
-		// top face
-		1, 5, 6,
-		1, 6, 2,
+		// Left Face
+		16, 17, 18,
+		16, 18, 19,
 
-		// bottom face
-		4, 0, 3,
-		4, 3, 7
+		// Right Face
+		20, 21, 22,
+		20, 22, 23
 	};
 
 	D3D11_BUFFER_DESC indexBufferDesc;
@@ -188,15 +222,52 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 	hr = m_DX11Mgr->GetDevice()->CreateBuffer(&indexBufferDesc, &iinitData, &cubeIndexBuffer);
 	if (FAILED(hr)) return hr;
 
+	MeshStoreManager::Get()->AddMeshToList("Cube", cubeVertBuffer, cubeIndexBuffer, 24, 36);
+
 	std::shared_ptr<GameObjectConfig> goConfig = std::make_shared<GameObjectConfig>();
 	goConfig->m_DX11Mgr = m_DX11Mgr;
-	goConfig->m_VertBuffer = cubeVertBuffer;
-	goConfig->m_IndexBuffer = cubeIndexBuffer;
+	goConfig->m_Mesh = MeshStoreManager::Get()->GetMeshStore("Cube");
 
 	cube1 = std::make_unique<GameObject>();
 	cube1->Initialise(goConfig);
 	cube2 = std::make_unique<GameObject>();
 	cube2->Initialise(goConfig);
+
+	rot = 0.01f;
+
+	return hr;
+}
+
+HRESULT GraphicsEngineModule::InitialiseBasicTextures()
+{
+	HRESULT hr;
+	
+	hr = DirectX::CreateDDSTextureFromFile(m_DX11Mgr->GetDevice(), L"Content\\Textures\\placeholder.dds", 0, &m_Texture);
+	if (FAILED(hr)) return hr;
+
+	m_DX11Mgr->GetDeviceContext()->PSSetShaderResources(0, 1, &m_Texture);
+
+	return hr;
+}
+
+HRESULT GraphicsEngineModule::InitialiseSamplerState()
+{
+	HRESULT hr;
+
+	D3D11_SAMPLER_DESC sampDesc;
+	ZeroMemory(&sampDesc, sizeof(sampDesc));
+	sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+	sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	sampDesc.MinLOD = 0;
+	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	hr = m_DX11Mgr->GetDevice()->CreateSamplerState(&sampDesc, &m_SamplerState);
+	if (FAILED(hr)) return hr;
+
+	m_DX11Mgr->GetDeviceContext()->PSSetSamplers(0, 1, &m_SamplerState);
 
 	return hr;
 }
@@ -224,15 +295,18 @@ void GraphicsEngineModule::InitialiseBasicViewport()
 void GraphicsEngineModule::InitialiseBasicCamera()
 {
 	// Camera positon/at/up
-	camPosition = DirectX::XMVectorSet(0.0f, 3.0f, -8.0f, 0.0f);
-	camTarget = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
-	camUp = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
+	std::shared_ptr<CameraConfig> camConfig = std::make_shared<CameraConfig>();
+	camConfig->m_WindowMgr = m_WindowMgr;
+	camConfig->m_Position = DirectX::XMFLOAT4(0.0f, 3.0f, -8.0f, 0.0f);
+	camConfig->m_LookAt = DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 0.0f);
+	camConfig->m_Up = DirectX::XMFLOAT4(0.0f, 1.0f, 0.0f, 0.0f);
+
+	m_MainCamera = std::make_shared<Camera>();
+	m_MainCamera->Initialise(camConfig);
 
 	// View/Projection/World matrix creation
-	camView = DirectX::XMMatrixLookAtLH(camPosition, camTarget, camUp);
-	camProjection = DirectX::XMMatrixPerspectiveFovLH(0.4f * 3.14f, (float)m_WindowMgr->GetWindow(0)->GetWindowWidth() / m_WindowMgr->GetWindow(0)->GetWindowHeight(), 1.0f, 1000.0f);
 	World = DirectX::XMMatrixIdentity();
-	WVP = World * camView * camProjection;
+	WVP = World * m_MainCamera->GetView() * m_MainCamera->GetProjection();
 }
 
 void GraphicsEngineModule::Run()
@@ -249,7 +323,6 @@ void GraphicsEngineModule::Update()
 	if (rot > 6.28f)
 		rot = 0.0f;
 
-
 	// Define cube1's world space matrix
 	DirectX::XMVECTOR rotaxis = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f);
 	cube1->m_Scale = DirectX::XMMatrixScaling(1.0f, 1.0f, 1.0f);
@@ -257,7 +330,7 @@ void GraphicsEngineModule::Update()
 	cube1->m_Translation = DirectX::XMMatrixTranslation(0.0f, 0.0f, 4.0f);
 
 	// Set cube1's world space using the transformations
-	cube1->Update(camView, camProjection);
+	cube1->Update(m_MainCamera->GetView(), m_MainCamera->GetProjection());
 
 
 	// Define cube2's world space matrix
@@ -266,7 +339,7 @@ void GraphicsEngineModule::Update()
 	cube2->m_Translation = DirectX::XMMatrixTranslation(1.0f, 1.0f, 1.0f);
 
 	// Update Cube 2
-	cube2->Update(camView, camProjection);
+	cube2->Update(m_MainCamera->GetView(), m_MainCamera->GetProjection());
 }
 
 void GraphicsEngineModule::Draw()

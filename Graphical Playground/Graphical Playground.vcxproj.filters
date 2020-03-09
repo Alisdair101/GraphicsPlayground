@@ -53,6 +53,9 @@
     <Filter Include="Content\Shaders">
       <UniqueIdentifier>{bb7962e1-9680-4ef0-b4d8-4df62d338d10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Content\Textures">
+      <UniqueIdentifier>{3c5eb540-142e-4ae5-8a43-817f455c7670}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="System\Application.cpp">
@@ -81,6 +84,15 @@
     </ClCompile>
     <ClCompile Include="System\main.cpp">
       <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Module\MeshStoreManager.cpp">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Module</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Objects\Camera.cpp">
+      <Filter>Engine\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Library\DDSTextureLoader.cpp">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,6 +128,15 @@
     </ClInclude>
     <ClInclude Include="Engine\Objects\IObject.h">
       <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Module\MeshStoreManager.h">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Objects\Camera.h">
+      <Filter>Engine\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Library\DDSTextureLoader.h">
+      <Filter>Engine\Engine Modules\Modules\Graphics Module\Library</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

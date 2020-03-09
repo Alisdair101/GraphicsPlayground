@@ -21,8 +21,7 @@ struct GameObjectConfig : IObjectConfig
 
 	std::shared_ptr<DX11Manager> m_DX11Mgr;
 
-	ID3D11Buffer* m_VertBuffer;
-	ID3D11Buffer* m_IndexBuffer;
+	std::shared_ptr<GXLib::MeshStore> m_Mesh;
 };
 
 
@@ -53,12 +52,16 @@ public:
 private:
 	std::shared_ptr<DX11Manager> m_DX11Mgr;
 
-	ID3D11Buffer* m_VertBuffer;
+	std::shared_ptr<GXLib::MeshStore> m_Mesh;
+	ID3D11Buffer* m_VertexBuffer;
 	ID3D11Buffer* m_IndexBuffer;
 
 	DirectX::XMMATRIX m_World;
 
 	ID3D11Buffer* m_ConstantBuffer;
 	GXLib::cbPerObject m_CBObject;
-};
 
+	// Texture
+	ID3D11ShaderResourceView* m_Texture;
+	ID3D11SamplerState* m_TexSamplerState;
+};

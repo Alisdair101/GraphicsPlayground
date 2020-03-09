@@ -19,25 +19,31 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Library\DDSTextureLoader.cpp" />
     <ClCompile Include="Engine\Engine Modules\Graphics Module\Library\GraphicsModuleLibrary.cpp" />
     <ClCompile Include="Engine\Engine Modules\Graphics Module\Module\GraphicsEngineModule.cpp" />
+    <ClCompile Include="Engine\Engine Modules\Graphics Module\Module\MeshStoreManager.cpp" />
     <ClCompile Include="Engine\Managers\Objects\GameScene.cpp" />
     <ClCompile Include="Engine\Managers\Objects\Window\ManagedWindow.cpp" />
     <ClCompile Include="Engine\Managers\System Managers\DX11Manager.cpp" />
     <ClCompile Include="Engine\Managers\System Managers\WindowManager.cpp" />
+    <ClCompile Include="Engine\Objects\Camera.cpp" />
     <ClCompile Include="Engine\Objects\GameObject.cpp" />
     <ClCompile Include="System\Application.cpp" />
     <ClCompile Include="System\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Base Interface\EngineModule.h" />
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Library\DDSTextureLoader.h" />
     <ClInclude Include="Engine\Engine Modules\Graphics Module\Library\GraphicsModuleLibrary.h" />
     <ClInclude Include="Engine\Engine Modules\Graphics Module\Module\GraphicsEngineModule.h" />
+    <ClInclude Include="Engine\Engine Modules\Graphics Module\Module\MeshStoreManager.h" />
     <ClInclude Include="Engine\Managers\Base Interface\Manager.h" />
     <ClInclude Include="Engine\Managers\Objects\GameScene.h" />
     <ClInclude Include="Engine\Managers\Objects\Window\ManagedWindow.h" />
     <ClInclude Include="Engine\Managers\System Managers\DX11Manager.h" />
     <ClInclude Include="Engine\Managers\System Managers\WindowManager.h" />
+    <ClInclude Include="Engine\Objects\Camera.h" />
     <ClInclude Include="Engine\Objects\GameObject.h" />
     <ClInclude Include="Engine\Objects\IObject.h" />
     <ClInclude Include="System\Application.h" />
