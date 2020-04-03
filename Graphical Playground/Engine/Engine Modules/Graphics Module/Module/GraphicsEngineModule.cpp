@@ -25,6 +25,8 @@ void GraphicsEngineModule::Destroy()
 	VS->Release();
 	PS->Release();
 	inputLayout->Release();
+	m_Texture->Release();
+	m_SamplerState->Release();
 }
 
 HRESULT GraphicsEngineModule::Initialise(std::shared_ptr<EngineModuleConfig> config)
@@ -238,6 +240,7 @@ HRESULT GraphicsEngineModule::InitialiseBasicObject()
 	return hr;
 }
 
+// TEMP
 HRESULT GraphicsEngineModule::InitialiseBasicTextures()
 {
 	HRESULT hr;
@@ -249,7 +252,7 @@ HRESULT GraphicsEngineModule::InitialiseBasicTextures()
 
 	return hr;
 }
-
+ // TEMP
 HRESULT GraphicsEngineModule::InitialiseSamplerState()
 {
 	HRESULT hr;
